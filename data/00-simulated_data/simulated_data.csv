@@ -1,0 +1,302 @@
+age,gender,race,province,police,gunshot,year,period,prname
+30,0,White,QC,Regie intermunicipale de police de Saint-Jean-sur-Richelieu,1,2011,2011-2015,Quebec
+34,0,White,QC,Kawartha Lakes Police Service,0,2002,2000-2005,Quebec
+56,0,White,BC,Vancouver Police Department,1,2007,2006-2010,British Columbia
+38,1,White,BC,Hamilton Police Service,1,2000,2000-2005,British Columbia
+38,0,Black,QC,London Police Service,0,2013,2011-2015,Quebec
+58,1,Black,QC,Regie intermunicipale de police Roussillon,1,2010,2006-2010,Quebec
+42,0,White,NL,Guelph Police Service,1,2021,2021-2025,Newfoundland and Labrador
+21,0,White,MB,Surete du Quebec,0,2010,2006-2010,Manitoba
+28,1,White,ON,Durham Regional Police Service,1,2007,2006-2010,Ontario
+31,0,Black,BC,Greater Sudbury Police Service,1,2016,2016-2020,British Columbia
+52,0,White,BC,Regie intermunicipale de police Roussillon,1,2003,2000-2005,British Columbia
+41,1,White,ON,Regie intermunicipale de police du Lac-des-Deux-Montagnes,0,2011,2011-2015,Ontario
+42,1,Black,BC,Durham Regional Police Service,1,2014,2011-2015,British Columbia
+38,1,White,BC,Regina Police Service,0,2023,2021-2025,British Columbia
+30,1,White,ON,Victoria Police Department,1,2013,2011-2015,Ontario
+59,1,White,NB,Regina Police Service,0,2018,2016-2020,New Brunswick
+43,1,White,ON,Durham Regional Police Service,1,2010,2006-2010,Ontario
+13,0,Black,NB,Service de police de la Ville de Quebec,1,2016,2016-2020,New Brunswick
+45,1,White,BC,Kingston Police Services,1,2005,2000-2005,British Columbia
+31,1,White,NB,Halton Regional Police Service,0,2011,2011-2015,New Brunswick
+24,1,Black,ON,Kawartha Lakes Police Service,0,2018,2016-2020,Ontario
+34,0,White,ON,Brantford Police Service,1,2020,2016-2020,Ontario
+24,0,White,BC,North Bay Police,1,2016,2016-2020,British Columbia
+28,0,White,AB,Waterloo Regional Police,1,2005,2000-2005,Alberta
+29,0,White,ON,Edmonton Police Service,0,2004,2000-2005,Ontario
+16,1,White,MB,RCMP,1,2016,2016-2020,Manitoba
+47,0,White,AB,Brantford Police Service,1,2023,2021-2025,Alberta
+39,0,Black,NS,Surete du Quebec,1,2015,2011-2015,Nova Scotia
+23,1,White,BC,Surete du Quebec,1,2008,2006-2010,British Columbia
+52,1,White,BC,Service de police de la Ville de Repentigny,1,2010,2006-2010,British Columbia
+42,0,White,BC,Calgary Police Service,1,2004,2000-2005,British Columbia
+33,1,Black,BC,"RCMP, Surete du Quebec",1,2013,2011-2015,British Columbia
+48,0,White,ON,Durham Regional Police Service,1,2004,2000-2005,Ontario
+48,0,White,SK,Saugeen Shores Police Service,0,2010,2006-2010,Saskatchewan
+47,1,Black,QC,Summerside Police Department,0,2023,2021-2025,Quebec
+45,1,Black,ON,Hamilton Police Service,1,2012,2011-2015,Ontario
+44,1,White,PE,Greater Sudbury Police Service,1,2019,2016-2020,Prince Edward Island
+36,0,Black,BC,Peel Regional Police,1,2003,2000-2005,British Columbia
+33,1,White,QC,"Service de police de la Ville de Levis, Surete du Quebec, Service de police de la Ville de Quebec",1,2003,2000-2005,Quebec
+32,1,White,AB,Saugeen Shores Police Service,1,2010,2006-2010,Alberta
+28,1,White,BC,Saugeen Shores Police Service,0,2020,2016-2020,British Columbia
+34,0,White,ON,Service de police de la Ville de Laval,1,2019,2016-2020,Ontario
+21,0,White,BC,Regie intermunicipale de police du Lac-des-Deux-Montagnes,1,2005,2000-2005,British Columbia
+63,1,White,AB,Victoria Police Department,1,2009,2006-2010,Alberta
+52,1,White,NL,Kingston Police Services,1,2019,2016-2020,Newfoundland and Labrador
+23,0,White,NL,"RCMP, Surete du Quebec",0,2016,2016-2020,Newfoundland and Labrador
+32,0,White,ON,Service de securite publique de Saguenay,0,2010,2006-2010,Ontario
+31,1,White,QC,Summerside Police Department,1,2007,2006-2010,Quebec
+46,1,White,BC,Royal Newfoundland Constabulary,1,2020,2016-2020,British Columbia
+36,1,Black,BC,Victoria Police Department,1,2004,2000-2005,British Columbia
+40,0,White,BC,Waterloo Regional Police Service,1,2018,2016-2020,British Columbia
+36,1,White,AB,Edmonton Police Service,0,2010,2006-2010,Alberta
+36,1,Black,BC,Waterloo Regional Police,1,2000,2000-2005,British Columbia
+54,1,White,BC,Brantford Police Service,1,2001,2000-2005,British Columbia
+34,1,White,NL,Service de securite publique de Saguenay,0,2011,2011-2015,Newfoundland and Labrador
+55,0,White,PE,Niagara Regional Police Service,1,2013,2011-2015,Prince Edward Island
+18,1,White,BC,Securite publique de Saguenay,1,2002,2000-2005,British Columbia
+44,0,White,MB,Waterloo Regional Police Service,1,2015,2011-2015,Manitoba
+38,1,White,ON,Barrie Police Services,1,2019,2016-2020,Ontario
+39,1,White,QC,Port Moody Police Department,1,2003,2000-2005,Quebec
+41,0,White,ON,Service de police de la Ville de Montreal,0,2003,2000-2005,Ontario
+31,1,Black,ON,Windsor Police Service,1,2000,2000-2005,Ontario
+33,0,White,NS,Kawartha Lakes Police Service,1,2024,2021-2025,Nova Scotia
+24,0,White,ON,Service de police de la Ville de Montreal,0,2016,2016-2020,Ontario
+24,1,White,NS,Windsor Police Service,1,2020,2016-2020,Nova Scotia
+41,0,White,BC,Peel Regional Police,0,2003,2000-2005,British Columbia
+42,1,White,ON,Brantford Police Service,1,2016,2016-2020,Ontario
+37,0,White,PE,"Lake Shore Regional Police Service, RCMP",0,2006,2006-2010,Prince Edward Island
+48,0,White,BC,Regina Police Service,1,2024,2021-2025,British Columbia
+62,1,Black,ON,Waterloo Regional Police,1,2004,2000-2005,Ontario
+31,0,White,NB,Royal Newfoundland Constabulary,0,2008,2006-2010,New Brunswick
+8,0,White,ON,Amherstburg Police Service,1,2005,2000-2005,Ontario
+49,0,White,BC,Regina Police Service,0,2008,2006-2010,British Columbia
+28,1,Black,BC,Surete du Quebec,1,2002,2000-2005,British Columbia
+28,1,White,QC,Durham Regional Police Service,1,2008,2006-2010,Quebec
+49,0,White,AB,Bathurst Police Force,1,2016,2016-2020,Alberta
+33,0,White,ON,Waterloo Regional Police Service,1,2002,2000-2005,Ontario
+22,0,White,ON,Cobourg Police Service,0,2005,2000-2005,Ontario
+39,1,White,ON,Regie intermunicipale de police du Lac-des-Deux-Montagnes,1,2017,2016-2020,Ontario
+35,1,Black,MB,South Simcoe Police,0,2016,2016-2020,Manitoba
+37,1,White,AB,Hamilton Police Service,1,2012,2011-2015,Alberta
+42,1,Black,AB,Kingston Police Services,1,2011,2011-2015,Alberta
+32,1,White,BC,Windsor Police Service,0,2014,2011-2015,British Columbia
+45,1,White,BC,Peterborough Police Service,1,2009,2006-2010,British Columbia
+34,1,White,BC,Niagara Regional Police Service,1,2020,2016-2020,British Columbia
+41,0,White,PE,Windsor Police Service,1,2015,2011-2015,Prince Edward Island
+50,0,White,NS,OPP,0,2000,2000-2005,Nova Scotia
+42,0,White,AB,London Police Service,1,2005,2000-2005,Alberta
+33,0,White,QC,"Service de police de la Ville de Levis, Surete du Quebec, Service de police de la Ville de Quebec",1,2014,2011-2015,Quebec
+51,1,White,BC,Niagara Regional Police Service,0,2021,2021-2025,British Columbia
+49,1,White,ON,Halton Regional Police Service,1,2007,2006-2010,Ontario
+44,0,White,QC,North Bay Police,1,2000,2000-2005,Quebec
+40,0,Black,ON,"New Westminster Police Service, RCMP",0,2005,2000-2005,Ontario
+29,1,White,NB,London Police Service,0,2016,2016-2020,New Brunswick
+54,0,White,BC,Vancouver Police Department,0,2021,2021-2025,British Columbia
+29,0,White,AB,Brantford Police Service,1,2005,2000-2005,Alberta
+64,0,White,ON,Ottawa Police Service,1,2004,2000-2005,Ontario
+56,0,White,BC,Amherstburg Police Service,1,2008,2006-2010,British Columbia
+34,1,White,MB,"New Westminster Police Service, RCMP",1,2009,2006-2010,Manitoba
+24,0,White,MB,Surete du Quebec,0,2002,2000-2005,Manitoba
+28,0,Black,ON,Service de police de la Ville de Montreal,0,2008,2006-2010,Ontario
+40,1,Black,NS,Guelph Police Service,1,2020,2016-2020,Nova Scotia
+34,0,White,ON,Port Moody Police Department,1,2022,2021-2025,Ontario
+33,1,White,AB,"RCMP, Surete du Quebec",1,2017,2016-2020,Alberta
+25,1,White,QC,OPP,1,2021,2021-2025,Quebec
+36,0,White,QC,Hamilton Police Service,1,2022,2021-2025,Quebec
+27,0,White,NB,Saskatoon Police Service,1,2024,2021-2025,New Brunswick
+16,0,White,QC,Saugeen Shores Police Service,1,2018,2016-2020,Quebec
+32,1,White,NL,Peterborough Lakefield Community Police Force,0,2024,2021-2025,Newfoundland and Labrador
+48,1,White,NL,Hamilton Police Service,1,2005,2000-2005,Newfoundland and Labrador
+30,1,White,BC,Calgary Police Service,0,2005,2000-2005,British Columbia
+44,1,White,AB,York Regional Police,1,2007,2006-2010,Alberta
+17,0,White,BC,South Simcoe Police,0,2003,2000-2005,British Columbia
+36,0,White,BC,"Halton Regional Police Services, Hamilton Police Service",1,2021,2021-2025,British Columbia
+43,0,White,ON,Port Moody Police Department,1,2016,2016-2020,Ontario
+41,0,White,ON,Service de police de la Ville de Gatineau,1,2019,2016-2020,Ontario
+38,1,White,ON,Regie intermunicipale de police de Saint-Jean-sur-Richelieu,0,2005,2000-2005,Ontario
+29,0,White,ON,Waterloo Regional Police Service,1,2006,2006-2010,Ontario
+26,0,White,PE,South Simcoe Police,0,2006,2006-2010,Prince Edward Island
+24,1,White,QC,Service de police de la Ville de Laval,1,2010,2006-2010,Quebec
+38,1,White,NS,Service de securite publique de Saguenay,0,2020,2016-2020,Nova Scotia
+25,1,Black,QC,Surete du Quebec,1,2000,2000-2005,Quebec
+31,1,White,ON,Bathurst Police Force,1,2018,2016-2020,Ontario
+34,1,White,AB,"Lake Shore Regional Police Service, RCMP",1,2007,2006-2010,Alberta
+59,1,White,NS,North Bay Police,1,2016,2016-2020,Nova Scotia
+29,1,White,PE,Port Moody Police Department,1,2013,2011-2015,Prince Edward Island
+40,1,White,QC,Service de police de la Ville de Gatineau,1,2023,2021-2025,Quebec
+38,0,White,BC,Regina Police Service,1,2006,2006-2010,British Columbia
+25,0,White,AB,Regie intermunicipale de police de Saint-Jean-sur-Richelieu,1,2002,2000-2005,Alberta
+36,1,White,NS,London Police Service,1,2000,2000-2005,Nova Scotia
+55,1,White,NS,"Lake Shore Regional Police Service, RCMP",1,2023,2021-2025,Nova Scotia
+42,1,White,ON,Regina Police Service,1,2014,2011-2015,Ontario
+37,0,White,BC,Kingston Police Services,0,2023,2021-2025,British Columbia
+32,0,White,ON,RCMP,0,2022,2021-2025,Ontario
+12,1,White,PE,Edmonton Police Service,0,2024,2021-2025,Prince Edward Island
+51,1,White,ON,OPP,1,2013,2011-2015,Ontario
+19,0,White,MB,"RCMP, Surete du Quebec",1,2011,2011-2015,Manitoba
+46,0,Black,PE,"RCMP, Surete du Quebec",1,2016,2016-2020,Prince Edward Island
+60,1,White,SK,Saskatoon Police Service,1,2007,2006-2010,Saskatchewan
+19,0,White,QC,Windsor Police Service,1,2000,2000-2005,Quebec
+45,0,White,SK,Niagara Regional Police Service,1,2021,2021-2025,Saskatchewan
+34,1,White,PE,Peterborough Lakefield Community Police Force,0,2001,2000-2005,Prince Edward Island
+17,0,White,NS,London Police Service,1,2004,2000-2005,Nova Scotia
+18,1,White,BC,Royal Newfoundland Constabulary,1,2012,2011-2015,British Columbia
+17,1,White,ON,Regie intermunicipale de police de Saint-Jean-sur-Richelieu,1,2018,2016-2020,Ontario
+30,0,Black,BC,"Lake Shore Regional Police Service, RCMP",1,2019,2016-2020,British Columbia
+19,1,Black,NB,Securite publique de Saguenay,1,2023,2021-2025,New Brunswick
+45,1,White,BC,Waterloo Regional Police Service,1,2021,2021-2025,British Columbia
+63,0,Black,BC,Service de securite publique de Saguenay,1,2008,2006-2010,British Columbia
+21,0,Black,ON,North Bay Police,1,2015,2011-2015,Ontario
+46,0,White,QC,Surete du Quebec,1,2020,2016-2020,Quebec
+46,0,White,ON,Brantford Police Service,1,2000,2000-2005,Ontario
+41,1,White,NS,OPP,1,2016,2016-2020,Nova Scotia
+24,0,White,ON,Surete du Quebec,0,2017,2016-2020,Ontario
+35,0,White,PE,Hamilton Police Service,1,2009,2006-2010,Prince Edward Island
+33,1,White,NS,Port Moody Police Department,1,2008,2006-2010,Nova Scotia
+44,0,White,ON,RCMP,1,2010,2006-2010,Ontario
+32,0,White,BC,Niagara Regional Police Service,1,2000,2000-2005,British Columbia
+49,1,White,AB,Cobourg Police Service,0,2001,2000-2005,Alberta
+32,0,White,PE,Brantford Police Service,1,2010,2006-2010,Prince Edward Island
+50,1,White,BC,North Bay Police,1,2024,2021-2025,British Columbia
+24,0,White,SK,Service de police de la Ville de Montreal,1,2016,2016-2020,Saskatchewan
+21,1,White,BC,RCMP,1,2013,2011-2015,British Columbia
+77,0,White,BC,Securite publique de Saguenay,1,2017,2016-2020,British Columbia
+32,0,White,BC,"New Westminster Police Service, RCMP",1,2013,2011-2015,British Columbia
+40,0,Black,AB,"New Westminster Police Service, RCMP",1,2019,2016-2020,Alberta
+45,1,White,QC,Peel Regional Police,1,2007,2006-2010,Quebec
+31,1,White,ON,Winnipeg Police Service,1,2023,2021-2025,Ontario
+43,1,Black,NB,Calgary Police Service,1,2004,2000-2005,New Brunswick
+41,1,Black,ON,Winnipeg Police Service,1,2008,2006-2010,Ontario
+34,1,Black,AB,"New Westminster Police Service, RCMP",1,2009,2006-2010,Alberta
+38,1,White,QC,South Simcoe Police,0,2016,2016-2020,Quebec
+36,0,White,AB,"Service de police de la Ville de Levis, Surete du Quebec, Service de police de la Ville de Quebec",1,2019,2016-2020,Alberta
+63,0,White,AB,Peterborough Lakefield Community Police Force,0,2006,2006-2010,Alberta
+28,0,White,BC,Windsor Police Service,1,2021,2021-2025,British Columbia
+23,0,White,ON,Durham Regional Police Service,1,2011,2011-2015,Ontario
+37,1,White,QC,Peterborough Police Service,1,2010,2006-2010,Quebec
+41,1,White,NL,Port Moody Police Department,1,2017,2016-2020,Newfoundland and Labrador
+42,0,White,BC,Saskatoon Police Service,0,2011,2011-2015,British Columbia
+31,1,White,BC,Bathurst Police Force,1,2006,2006-2010,British Columbia
+24,0,White,ON,Saskatoon Police Service,0,2002,2000-2005,Ontario
+52,1,White,QC,Service de securite publique de Saguenay,1,2013,2011-2015,Quebec
+32,1,White,QC,"New Westminster Police Service, RCMP",1,2017,2016-2020,Quebec
+26,0,White,NB,Bathurst Police Force,0,2015,2011-2015,New Brunswick
+34,0,White,NL,Vancouver Police Department,1,2016,2016-2020,Newfoundland and Labrador
+34,0,Black,QC,Service de police de la Ville de Gatineau,1,2005,2000-2005,Quebec
+50,0,White,ON,Peel Regional Police,0,2005,2000-2005,Ontario
+38,1,Black,BC,RCMP,1,2003,2000-2005,British Columbia
+46,1,White,NS,Kingston Police Services,1,2020,2016-2020,Nova Scotia
+31,1,White,NS,Saugeen Shores Police Service,1,2004,2000-2005,Nova Scotia
+39,0,White,MB,Windsor Police Service,1,2013,2011-2015,Manitoba
+33,0,White,SK,Service de police de la Ville de Montreal,0,2009,2006-2010,Saskatchewan
+38,1,White,AB,"RCMP, Surete du Quebec",1,2007,2006-2010,Alberta
+26,0,Black,QC,Hamilton Police Service,1,2021,2021-2025,Quebec
+21,0,White,ON,Saskatoon Police Service,1,2009,2006-2010,Ontario
+61,0,White,NB,Greater Sudbury Police Service,1,2022,2021-2025,New Brunswick
+44,0,White,ON,Saugeen Shores Police Service,1,2013,2011-2015,Ontario
+21,0,Black,QC,Brantford Police Service,1,2014,2011-2015,Quebec
+29,0,White,SK,Service de police de la Ville de Montreal,1,2018,2016-2020,Saskatchewan
+22,0,White,MB,Cobourg Police Service,1,2000,2000-2005,Manitoba
+64,0,White,NB,"New Westminster Police Service, RCMP",1,2001,2000-2005,New Brunswick
+53,0,Black,ON,Regina Police Service,0,2014,2011-2015,Ontario
+34,0,White,QC,"Lake Shore Regional Police Service, RCMP",1,2009,2006-2010,Quebec
+43,1,White,NL,Waterloo Regional Police Service,0,2004,2000-2005,Newfoundland and Labrador
+32,0,Black,AB,Amherstburg Police Service,1,2004,2000-2005,Alberta
+31,0,Black,BC,Port Moody Police Department,0,2022,2021-2025,British Columbia
+27,1,White,ON,Surete du Quebec,0,2016,2016-2020,Ontario
+29,1,White,ON,Regie intermunicipale de police Roussillon,0,2016,2016-2020,Ontario
+57,0,Black,NS,Peterborough Lakefield Community Police Force,1,2017,2016-2020,Nova Scotia
+36,1,White,BC,OPP,1,2001,2000-2005,British Columbia
+38,0,White,SK,Waterloo Regional Police Service,1,2010,2006-2010,Saskatchewan
+40,1,White,QC,Regie intermunicipale de police du Lac-des-Deux-Montagnes,0,2004,2000-2005,Quebec
+52,1,White,QC,Cobourg Police Service,1,2016,2016-2020,Quebec
+30,0,White,SK,RCMP,1,2013,2011-2015,Saskatchewan
+25,0,Black,ON,Calgary Police Service,0,2002,2000-2005,Ontario
+57,0,White,MB,Regie intermunicipale de police du Lac-des-Deux-Montagnes,1,2009,2006-2010,Manitoba
+31,1,White,BC,"Halton Regional Police Services, Hamilton Police Service",0,2012,2011-2015,British Columbia
+28,1,White,QC,Durham Regional Police Service,1,2024,2021-2025,Quebec
+22,1,White,BC,Surete du Quebec,1,2018,2016-2020,British Columbia
+21,0,White,ON,Barrie Police Services,0,2001,2000-2005,Ontario
+30,1,White,PE,Service de police de la Ville de Montreal,1,2016,2016-2020,Prince Edward Island
+44,1,White,ON,Regie intermunicipale de police Roussillon,1,2008,2006-2010,Ontario
+50,1,White,AB,Service de police de la Ville de Montreal,1,2018,2016-2020,Alberta
+46,0,Black,BC,Halton Regional Police Service,0,2017,2016-2020,British Columbia
+32,0,White,ON,"RCMP, Surete du Quebec",0,2008,2006-2010,Ontario
+38,0,White,NL,Service de police de la Ville de Quebec,1,2021,2021-2025,Newfoundland and Labrador
+28,0,White,BC,"New Westminster Police Service, RCMP",0,2013,2011-2015,British Columbia
+28,1,White,ON,OPP,1,2014,2011-2015,Ontario
+48,0,Black,SK,"RCMP, Surete du Quebec",0,2005,2000-2005,Saskatchewan
+24,1,White,NS,Waterloo Regional Police Service,0,2007,2006-2010,Nova Scotia
+61,0,White,AB,Victoria Police Department,1,2019,2016-2020,Alberta
+36,1,White,BC,Regie intermunicipale de police Roussillon,1,2001,2000-2005,British Columbia
+39,1,White,MB,OPP,1,2000,2000-2005,Manitoba
+28,1,White,NL,London Police Service,0,2017,2016-2020,Newfoundland and Labrador
+30,1,White,NS,Regina Police Service,1,2006,2006-2010,Nova Scotia
+21,1,White,ON,Saskatoon Police Service,1,2006,2006-2010,Ontario
+35,0,White,NL,Peterborough Police Service,1,2003,2000-2005,Newfoundland and Labrador
+42,0,Black,QC,Windsor Police Service,1,2004,2000-2005,Quebec
+41,1,White,ON,Victoria Police Department,1,2010,2006-2010,Ontario
+27,1,White,ON,Waterloo Regional Police Service,1,2009,2006-2010,Ontario
+27,1,Black,ON,Victoria Police Department,0,2010,2006-2010,Ontario
+31,0,White,MB,RCMP,0,2000,2000-2005,Manitoba
+55,1,White,PE,Securite publique de Saguenay,1,2009,2006-2010,Prince Edward Island
+23,0,White,SK,Niagara Regional Police Service,1,2024,2021-2025,Saskatchewan
+35,1,White,BC,Service de police de la Ville de Montreal,1,2022,2021-2025,British Columbia
+60,0,White,NL,RCMP,1,2020,2016-2020,Newfoundland and Labrador
+36,0,White,MB,Surete du Quebec,1,2011,2011-2015,Manitoba
+20,0,Black,PE,Cobourg Police Service,0,2006,2006-2010,Prince Edward Island
+29,0,White,AB,RCMP,0,2004,2000-2005,Alberta
+43,1,White,NL,Bathurst Police Force,1,2017,2016-2020,Newfoundland and Labrador
+32,1,Black,QC,Brantford Police Service,1,2007,2006-2010,Quebec
+30,1,White,NS,Vancouver Police Department,0,2014,2011-2015,Nova Scotia
+33,1,White,BC,Amherstburg Police Service,1,2006,2006-2010,British Columbia
+38,0,White,BC,Summerside Police Department,0,2013,2011-2015,British Columbia
+56,1,Black,SK,Peel Regional Police,0,2009,2006-2010,Saskatchewan
+36,0,White,AB,Service de police de la Ville de Quebec,1,2023,2021-2025,Alberta
+50,0,White,ON,Port Moody Police Department,0,2015,2011-2015,Ontario
+45,1,White,ON,Saskatoon Police Service,0,2024,2021-2025,Ontario
+35,0,White,QC,"Lake Shore Regional Police Service, RCMP",0,2002,2000-2005,Quebec
+18,0,White,BC,Service de police de la Ville de Gatineau,1,2021,2021-2025,British Columbia
+30,1,White,NL,RCMP,1,2022,2021-2025,Newfoundland and Labrador
+31,0,White,NS,London Police Service,0,2010,2006-2010,Nova Scotia
+37,1,White,BC,Saskatoon Police Service,0,2002,2000-2005,British Columbia
+53,0,White,NB,Regina Police Service,1,2007,2006-2010,New Brunswick
+65,0,White,SK,"Halton Regional Police Services, Hamilton Police Service",1,2016,2016-2020,Saskatchewan
+56,0,White,AB,Windsor Police Service,1,2024,2021-2025,Alberta
+35,1,Black,AB,Service de police de la Ville de Quebec,0,2021,2021-2025,Alberta
+15,1,White,ON,Ottawa Police Service,1,2012,2011-2015,Ontario
+32,0,White,AB,"Lake Shore Regional Police Service, RCMP",0,2014,2011-2015,Alberta
+38,0,White,BC,Guelph Police Service,1,2011,2011-2015,British Columbia
+47,1,Black,QC,Victoria Police Department,1,2008,2006-2010,Quebec
+49,1,White,ON,Kawartha Lakes Police Service,0,2018,2016-2020,Ontario
+45,1,White,BC,London Police Service,1,2018,2016-2020,British Columbia
+20,1,White,AB,South Simcoe Police,0,2005,2000-2005,Alberta
+47,0,White,QC,"Service de police de la Ville de Levis, Surete du Quebec, Service de police de la Ville de Quebec",0,2012,2011-2015,Quebec
+31,1,White,ON,Calgary Police Service,0,2008,2006-2010,Ontario
+39,1,White,BC,Service de police de la Ville de Quebec,0,2010,2006-2010,British Columbia
+38,1,White,NB,Niagara Regional Police Service,1,2024,2021-2025,New Brunswick
+42,0,White,AB,"Service de police de la Ville de Levis, Surete du Quebec, Service de police de la Ville de Quebec",0,2013,2011-2015,Alberta
+37,1,White,ON,Regie intermunicipale de police Roussillon,0,2018,2016-2020,Ontario
+16,1,Black,ON,"Halton Regional Police Services, Hamilton Police Service",0,2020,2016-2020,Ontario
+46,0,White,NL,South Simcoe Police,1,2022,2021-2025,Newfoundland and Labrador
+42,1,White,BC,Peterborough Lakefield Community Police Force,0,2017,2016-2020,British Columbia
+34,1,White,AB,Regie intermunicipale de police du Lac-des-Deux-Montagnes,1,2021,2021-2025,Alberta
+38,0,White,MB,South Simcoe Police,1,2023,2021-2025,Manitoba
+38,0,White,ON,Cobourg Police Service,0,2020,2016-2020,Ontario
+40,0,White,ON,Vancouver Police Department,1,2012,2011-2015,Ontario
+57,0,White,QC,Victoria Police Department,1,2011,2011-2015,Quebec
+34,1,White,MB,Waterloo Regional Police Service,0,2018,2016-2020,Manitoba
+39,1,White,BC,Niagara Regional Police Service,0,2011,2011-2015,British Columbia
+51,1,White,BC,Amherstburg Police Service,1,2020,2016-2020,British Columbia
+50,1,White,AB,Victoria Police Department,0,2019,2016-2020,Alberta
+51,1,White,NL,Guelph Police Service,0,2003,2000-2005,Newfoundland and Labrador
+30,1,Black,QC,Guelph Police Service,1,2022,2021-2025,Quebec
+61,0,White,QC,Winnipeg Police Service,1,2015,2011-2015,Quebec
+38,0,Black,ON,Greater Sudbury Police Service,1,2016,2016-2020,Ontario
+60,0,White,MB,Durham Regional Police Service,0,2011,2011-2015,Manitoba
+20,1,Black,ON,Service de securite publique de Saguenay,0,2001,2000-2005,Ontario
+37,1,Black,AB,Saskatoon Police Service,1,2004,2000-2005,Alberta
+52,1,White,AB,North Bay Police,1,2018,2016-2020,Alberta
+28,1,White,ON,Service de police de la Ville de Quebec,1,2012,2011-2015,Ontario

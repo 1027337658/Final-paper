@@ -1,0 +1,746 @@
+---
+title: "Racial Disparities in Police-Involved Deaths: A Focus on Levels of Canada, Ontario and Toronto"
+subtitle: "Examining the differences of blacks and whites on Gunshot Likelihood"
+author: 
+  - Yuanting Han
+thanks: "Code and data are available at: [https://github.com/1027337658/Injustice](https://github.com/1027337658/Injustice)."
+date: today
+date-format: long
+abstract: "This study aims to investigate the problem of racial disparities on gun shot likelihood in police-involved deaths in Canada since the year 2000. Bayesian logistic regression models conducted at three levels: Canada Overall, Ontario province and Toronto city. The findings of the study shows no significance of racial disparities on gun shot likelihood at Canada country and Ontario province levels but the odds of gun shot likelhood for blacks is over six times higher than that for whites (OR = 7.13). This study could be helpful for policymakers in Canada to make better and more efficient decisions to reduce racial inequalities in policing practices at City level like Toronto."
+format: pdf
+linestretch: 1.5
+number-sections: true
+bibliography: references.bib
+---
+
+```{r}
+#| include: false
+#| warning: false
+#| message: false
+
+library(tidyverse) 
+library(arrow) #for read parquet
+library(cowplot) #for layout
+library(canadamaps) #for map
+library(gtsummary) #for tables
+library(RColorBrewer) #for nicely colors
+library(ggthemes) #for nicely themes of ggplot2
+library(ggplot2) #for plots
+library(dplyr) #for data manuplication
+library(here) #for solving path issues
+library(rstanarm) #for models
+library(tinytable)
+library(modelsummary)
+select <- dplyr::select #solve the issues of conflicts of select function
+
+```
+
+
+# Introduction
+
+A lot of people considered the Gun shot deaths of blacks are more than those of whites. This is a problem of racial bias shooting [@citeintro2]. There appears unequality likelihood of Gun shooting between blacks and whites [@citeintro1]. This study investigates the problem of racial disparities in police-involved deaths in Canada since the year 2000 with a special focus on Ontario province and Toronto city. This study aims to obtain the differences of Gun shot likelihood between blacks and whites in killings and deaths following intentional police use of force in three levels: Canada Overall, Ontario province and Toronto city (Toronto Police Service). This study contributes the researchs of racial disparities in police-involved deaths by employing bayesian logistic regression models at Country, Province and City levels at the same time.
+
+
+The estimand that we are trying to estimate is the difference between the blacks and whites on the likelihood of Gun shot in killings and deaths following intentional police use of force in three levels: Canada Overall, Ontario province and Toronto city. The bayesian logistic regression models utilized in this study provides an approach to investigate the problem of differences of Gun shot likelihood between blacks and whites in Canada. Results could be obtained from Odds Ratios (OR) and significance could be inferred from 95% Confidence Intervals (CI) based on the bayesian logistic regression models. The estimates use the Tracking (in)justice Website open database [@citedata] which provides killings and deaths following intentional police use of force in Canada since year 2000.
+
+
+This study finds that there is no significant evidence of Racial Disparities on the likelihood of Gun shot in killings and deaths following intentional police use of force at the Canada country level as well as at the Ontario province level. The 95% confidence intervals of Odds Ratios estimated for the two levels include 1s. However, it was found that at the Toronto city level that the odds of Gun shot likelihood vs. Not Gun shot for Blacks is over 6 time more than that of whites (OR = 7.13). This indicates a clear racial disparity at the Toronto city level.
+
+Understanding Racial Disparities in Police-Involved Deaths is important, it could help us to understand the inequalities of blacks and whites in Canada following intentional police use of force. This study shows significant evidence of much higher risks of blacks faced with Gun shot deaths compared with whites in Toronto city but not at Ontario province and Canada country level. The results obtained might give useful information that could help policymakers in Canada to make better decisions in dealing with the Racial Disparities issues especailly in Toronto city such as better allocation of re-sources that could focus on city level gun shot racial bias instead of province or country level in Canada.
+
+Telegraphing paragraph: The remainder of this paper is structured as follows. @sec-data introduces the data used for this study including all of variables and measurements, visualizations and summary statistics. @sec-model introduces the bayesian logistic regression models to investigate the race differences on likelihood of Gun shot at Country, Province and City three different levels. @sec-result shows the analysis of the data and the interpretations of the bayesian logistic regression models. @sec-Discussion provides dicussions of the findings and the implications, weaknesses and future work of the research.
+
+
+
+# Data {#sec-data}
+
+## Overview
+
+The data utilized in this study concentrates on killings and deaths following intentional police use of force, which is accessible in the Tracking (in)justice Website open database [@citedata]. Currently, Tracking (in)justice Website Data contains collected killings and deaths following intentional police use of force in Canada since year 2000, covering victims due to a range of police use of force such as gun shootings, tasers weapons, and physical forces. The data source, Tracking (in)justice Website offers openly available living data sets to the public that can be downloaded freely from the website. 
+
+
+@tbl-justice illustrates a first several lines of the cleaned Tracking (in)justice Website Data, it shows the data structure used for this study.
+
+```{r}
+#| label: tbl-justice
+#| tbl-cap: "First 6 lines of cleaned Tracking (in)justice Website Data"
+#| echo: false
+data <- read_parquet(here::here("data/02-analysis_data/analysis_data.parquet"))
+tinytable::tt(head(data[,-7], 6),theme = "striped",width = 0.9)
+```
+
+The prepared data for this study contains 301 observations with 9 variables. The year variable is the year in which an incident of police-involved death occurred. The period is the variable that divides the year into every 5 years period from 2020 to 2024 which includes 2000-2005, 2006-2010,2011-2015, 2016-2020, and 2021-2025. The age is how many years old of the victim at the death time. The gender refers gender expression of victim. The race variable is racial identity of the victim. The gunshot variable is whether the highest level of force that resulted the victim's death is gun shooting or not. The province variable is the abbreviation of the province name variable. The police variable is the detailed police service involved in the victim's death due to police force use.
+
+The data source, Tracking (in)justice Website open database also provides a similar data set `Deaths in Custody Data Set` which also includes deaths records, however, the interested topic of the paper is about Gun shot rate between blacks and whites, the similar data set does not provide enough related information to do analysis. 
+
+
+We use the statistical programming language R [@citeR] for computations and visualizations. Package tidyverse [@citetidyverse] is a collection of useful R packages. arrow [@citearrow] is used for reading and writing parquet format data. ggthemes [@citeggthemes], ggplot2 [@citeggplot2], RColorBrewer [@citeRColorBrewer], cowplot [@citecowplot], for data visualizations and layout. dplyr [@citedplyr] is for data manipulation. here [@citehere] is for data paths. tinytable [@citetinytable], gtsummary [@citegtsummary] for creating tables. rstanarm [@citerstanarm] for building bayesian model. modelsummary [@citemodelsummary] is for creating model summary output table. canadamaps [@citecanadamaps] is for creating Canada map.
+
+
+
+## Measurement
+	
+The data source uses the convenience sampling as primary sampling method to collect new cases of killings and deaths following intentional police use of force that occurred in Canada since year 2000. The data collection process of Tracking (in)justice Website open database includes publicly available sources such as government reports, accredited Canadian media sources, and press releases, each new victim collected would be append to existed database. When there is a new case of killings and deaths following intentional police use of force, Tracking (in)justice Website aggregates information into database. 
+
+For Date, Tracking (in)justice Website recorded the specific date of the killings and deaths occurred from the police or media reports. Name of victims is also recorded. The gender is gender expression which is not the birth sex recorded by extracting gender information from reports. The age is reported years old of victims. The extracted race information is categorized referred to the existing government categorizations including Statistics Canada and Ontario Human Rights Commission. Province is the province of  death occurred that recorded with abbreviation and full province name can be founded from a range of open sources. Police Service information is recorded the one which involved with deaths of victims. Highest level of force is categorized referred to categories including Gunshot, Restraint, Physical Force and so on. Then each data entry is combined of the  assignment of the variables that created based on information extracted from police or media reports. Each data entry represents a unique case for a unique victim of killings and deaths following intentional police use of force.
+
+The data source, Tracking (in)justice Website try their best to make sure the reliability and validity of the data entry collected from various data sources including government reports, media sources, and press releases. Tracking (in)justice Website check carefully each data entry's consistence across different data sources.
+
+
+## Outcome variable
+
+After data prepared for this study, we call the data as `Canada Gun Shot Data` which defined as the data that Highest level of intentional police force used that is Gun shot which resulted killings and deaths in Canada since year 2000. The Outcome variable is whether a victim is killed by gun shot in that record. @fig-gunshot illustrates the time trends of the total number of killings and deaths collected by Tracking (in)justice Website as highest level force is Gun shot in Canada across years from 2000 to 2024. @fig-gunshot shows the trend of total number of highest level Gun shot appears to be stable over time overall which seems wave around a mean line like 10 cases. Note that, the total cases are only for races blacks and whites. However, this trend indicates the cases are not large enough for single years, so using 5 years periods is a better choice instead of using single years to compute the Gun shot percents. @tbl-summ illustrates the overall percent of Gun shot in Canada which is 78%, it means the percent of killings and deaths caused by Gun shot among all killings and deaths following intentional police use of force that occurred in Canada since year 2000 is 78%. This is a high percent indicating Gun shot is the main force used leading killings and deaths of victims.
+
+
+```{r}
+#| label: fig-gunshot
+#| fig-cap: Total number of highest level force Gun shot in killings and deaths following intentional police use of force in Canada across years for only races blacks and whites
+#| echo: false
+#| fig-height: 5.4
+#| fig-width: 7.2
+#| warning: false
+#| message: false
+data |>
+  group_by(year) |>
+  summarise(total = sum(gunshot)) |>
+  ggplot(aes(year, total)) +
+  geom_line(color = "skyblue", linewidth = 2) +
+  geom_point(size = 6, color = "darkorange") +
+  geom_label(aes(label = total), vjust = -1, fill = "#FFF9F5") +
+  theme_economist() +
+  scale_y_continuous(limits = c(0, 30)) +
+  labs(x = "Year", y = "Total number of highest level Gun shot",
+       title = "Total number of highest level Gun shot in Canada") +
+  theme(
+        axis.title = element_text(size = 10, face = "bold"))
+```
+
+
+## Predictor variables
+
+The predictor variables are mainly used in this paper are age, gender, race and year period. @fig-age illustrates the age distribution of victims by blacks and whites. The overall average years old of victims is 36.8 years old and it shows an average 32.8 years old for blacks which is about 5 years old younger than 37.8 years old for whites. Thus, young blacks is more frequently faced with Gun shot compared with whites. 
+
+```{r}
+#| echo: false
+#| eval: true
+#| fig-height: 5.8
+#| fig-width: 7.2
+#| label: fig-age
+#| fig-cap: Age distribution by blacks and whites of victims in records of killings and deaths following intentional police use of force in Canada since year 2000
+#| warning: false
+#| message: false
+age_text <- data.frame(
+  label = c("Mean = 32.8 \n Years Old", "Mean = 37.8 \n Years Old"),
+  race   = c("Black", "White")
+)
+dist.races <- data |>
+  select(race, age) |> 
+  group_by(race) |> 
+  ggplot(aes(x=age)) +
+  scale_x_continuous(limits = c(0, 100)) + 
+  geom_density(aes(fill=race), 
+               alpha = 0.6,
+               show.legend=F) + 
+  facet_wrap(~ race) + 
+  theme_minimal() + 
+  geom_vline(aes(xintercept = mean(age)),
+             color="indianred", 
+             linetype = "dashed",
+             size=1.2) + 
+  labs(title="Age Distribution", y = "Density", x= "Age") + 
+  scale_fill_manual(values=c("#58FA58", "#FA5858")) + 
+  geom_text(
+    data    = age_text,
+    mapping = aes(x = 65, y = 0.025, label = label)
+  )
+
+
+dist.overall <- data |> 
+  select(race, age) |> 
+  ggplot(aes(x=age)) +
+  geom_density(fill="skyblue") + 
+  scale_x_continuous(limits = c(0, 100)) + 
+  geom_vline(aes(xintercept=mean(age)),
+             color="indianred", 
+             linetype="dashed", 
+             size=1.2) + 
+  theme_minimal() + 
+  labs(x="Overall age", y = "Density") + 
+  annotate("text", label = "Mean = 36.8 \n Years Old",
+           x = 55, y = 0.025, color = "black")
+
+plot_grid(dist.races, dist.overall, nrow=2)
+```
+
+@tbl-summ shows the summary statistics of the collected 301 deaths of Canada Gun Shot data. In this table, we can find the median age is 36 with the Interquartile Range (IQR) to be 27 and 44. Most of victims are males that occupy 292 cases which is 97% of whole data. Whites are most showing 241 victims that occupy 80% of data, blacks are only 20%, this is inconsistent with the relative proportions of blacks and whites in Canada. Year periods show that the gun shot deaths have most cases occurred in periods 2006-2010, 2011-2015 and 2016-2020. This might due to missing values or incomplete data and date issues which would be discussed in @sec-Discussion.
+
+
+```{r}
+#| echo: false
+#| eval: true
+#| warning: false
+#| label: tbl-summ
+#| tbl-cap: Summary statistics for canada gun shot data
+#| message: false
+data_table <- data  |>
+  mutate(gender = ifelse(gender == 1, "Male","Female"))  |>
+  select(-police, -year, -prname,-province)  
+
+data_table  |> 
+  tbl_summary() 
+
+```
+
+
+
+# Model {#sec-model}
+
+The goal of the model strategy for this study is mainly focused on understanding contributing factor of the race on probability of using gun shot as highest level force in Canada, thus, we want to briefly describe a Bayesian logistic regression model to investigate whether blacks are faced with gun shot force more frequently compared with whites in Canada level, Ontario level and Toronto Police Service level. Background details and diagnostics are included in [Appendix -@sec-model-details].
+
+## Model set-up
+
+Define $y_i$ as whether there is a gun shot highest level force (1 = yes or 0 = no), $x_1$ is the age of victim in i-th force related death case, $x_2$ is the gender of the victim (1 = male; 0 = female), $x_3$ is the race of the victim (1 = black; 0 = white), $x_4$ define as the year of the i-th force related death case occurred is whether in period 2006-2010, $x_5$ is whether it is in period 2011-2015, $x_6$ is whether in period 2016-2020, $x_7$ is whether in period 2021-2025. The period dummies use period 2000-2005 as baseline, and $\pi_i$ is the probability that i-th force related death case is due to a highest level force gun shot.
+
+\begin{align}
+y_i|\pi_i & \sim \mbox{Bern}(\pi_i) \\
+\mbox{logit}(\pi_i) & = \beta_0+\beta_1 x_{1i} +\beta_2 x_{2i}+\beta_3 x_{3i}+\\
+ & \beta_4 x_{4i}+ \beta_5 x_{5i}+\beta_6 x_{6i}+\beta_7 x_{7i}\\
+\beta_0 & \sim \mbox{Normal}(0, 2.5)\\
+\beta_1 & \sim \mbox{Normal}(0, 2.5)\\
+\beta_2 & \sim \mbox{Normal}(0, 2.5)\\
+\beta_3 & \sim \mbox{Normal}(0, 2.5)\\
+\beta_5 & \sim \mbox{Normal}(0, 2.5)\\
+\beta_6 & \sim \mbox{Normal}(0, 2.5)\\
+\beta_7 & \sim \mbox{Normal}(0, 2.5)\\
+\end{align}
+
+We run the model in R [@citeR] using the `rstanarm` package of @rstanarm. The default priors from `rstanarm` are used. Also, note that, the above bayesian logistic regression model would be performed on three-level data set. The first one is based on all of the records across Canada, the second one is based on all of records across Ontario province, the third one is based on all of records only for Toronto Police Service.
+
+
+### Model justification
+
+Bayesian logistic regression model is preferred in this study because linear regression model expects a continuous outcome while whether there is a gun shot highest level force is a binary outcome which is appropriate for logistic regression model. Logistic regression model is simpler than Bayesian logistic regression model which can not handle the priors of coefficients. Thus, Bayesian logistic regression model is a balanced choice in complexity which is neither overly simplistic nor unnecessarily complicate for this study. 
+
+We expect there would be more chances of gun shot for black victims, so race is included in the model, it is the main interested independent variable in the study, and due to the interested question is to compare the situations of whites and blacks, thus, only black and white victims are included. Age is used rather than age groups because age is a continuous variable which is more flexible compared with age groups, age group introduce boundaries of ages, because we might expect the effects of a 23-years old could be much different from 28-years old in force use death cases, if both of them divided into an age group like 20-29, the difference could not be detected. Also, it is much simplicity and interpretability by including age instead of age groups in the model. For gender, we only want restricted our findings suitable for the males and females thus we only interested in males and females cases, we do not expect the findings are suitable for other gender categories which can not provide enough sample size in our research. For time, period is used instead of year because, there are few gun shot force related deaths cases recorded in some years, we do not have enough sample size for a single year to provide a reliable estimated effect on the outcome, so we use 5 years as one period that using periods 2000-2005, 2006-2010, 2011-2015, 2016-2020 and 2021-2025 to cover the range of the years. 
+
+Also, this study compares the results in three levels, the first level is All Canada, the second level is Ontario province and the third level is Toronto Police Service. We build three Bayesian logistic regression models correspondingly. The default priors from `rstanarm` are used because there are no strong beliefs for some special direction bias in our variables. The default priors are already flexible enough to reflect negative or positive effects. The underlying assumptions including independence which means the observations of i-th victims are independent, this might be not satisfied as the observations could not be time independent or geographic independent. This because same province of same Police Service might show similar behaviors thus the outcomes of victims could be affected, also, the gun shot rate overall is changed with years, so the time-independent is limited. The underlying assumption also includes that Bayesian logistic regression requires a linear combination of predictors, when there is non-linearity relation, the model might not be appropriate and could be biased. Normal distribution of priors is another underlying assumption of our model, for cases where normality of priors knowledge could be violated such as non-symmetric, our model would also not be appropriate. For other limitations, such as over-fitting issues of a complete model on a not large sample size, highly correlated predictors, our model would also not be appropriate. At last, we have a potential limitation by not including all of important variables, we have risk of omitted important variable bias.
+
+For model validation and checking, we would provide out-of-sample testing, pliting data into 70% training and 30% testing and then compute RMSE to evaluate the models. The sensitivity analyses would be conducted by changing priors of Bayesian logistic regression models. Finally,  model convergence and diagnostics would be performed by using trace plots, Rhat plots, prior predictive checks,  posterior distributions and posterior predictive checks. Finally, for other possible models, simpler models like logistic regression model can not handle prior knowledge, linear regression model can not deal with binary outcome. More complicated models like Bayesian Hierarchical Models using time and province as levels would be too complicate for our study, because we do not have a large enough sample size due to the nature of the force use deaths records data, as there could not be a large number such victims in Canada, so Bayesian Hierarchical Models might have overfitting issues. Thus, consider all of the aspects, Bayesian logistic regression model could be a good balanced choice at last.
+
+
+# Results {#sec-result}
+
+@fig-candagunshotmap illustrates the Percent of highest level force used in deaths cases is Gun shot overall in Canada in the sample period. For provinces like Newfoundland and Labrador and Prince Edward Island, the Gun shot percents even achieve 100%, this high percent of gun shot death cases might due to small sample sizes of cases collected in these provinces. However, the map shows the Gun shot percents across provinces are all quite high, most of them are above 80% which indicates Gun shot related deaths is currently the top one factor of the force use in deaths cases across Canada.
+
+
+```{r}
+#| echo: false
+#| eval: true
+#| label: fig-candagunshotmap
+#| fig-cap: "Percent of Gun shot overall in Canada, 'No info.' indicates no information obtained for related provinces"
+#| warning: false
+#| message: false
+#| fig-height: 6.8
+#| fig-width: 7.8
+#showing Percent of Gun shot overall in Canada map
+map_df  <- data |> 
+  select(gunshot, prname) |>
+  group_by(prname) |> 
+  summarize(rate = mean(gunshot)) |> #Compute percent of Gun shot
+  right_join(get_provinces(), by = "prname") |>  #get_provinces()  get canada provinces map information
+  mutate(
+    info = ifelse(is.na(rate), "No info.", round(rate * 100,1)), #make labels in map, contain information of province and Percent of Gun shot
+    label = ifelse(is.na(rate),
+                   paste(gsub(" /.*", "", prname),
+                         paste0(info),
+                         sep = "\n"),
+                   paste(gsub(" /.*", "", prname),
+                         paste0(info, "%"),
+                         sep = "\n"))
+  ) 
+
+map_overall <- map_df |>  ggplot() + 
+  geom_sf(aes(fill = rate * 100, geometry = geometry)) +
+  geom_sf_label(aes(label = label, geometry = geometry), alpha = 0.9) +
+  scale_fill_gradientn(colours = colorRampPalette(brewer.pal(6, "Set2"))(6), name = "") + #make nice colors
+  labs(title = "Percent of Gun shot overall in Canada") +
+  theme_void() +  #make appropriate themes
+  theme(
+    legend.position = "top",
+    plot.title = element_text(hjust = 0.5)
+  ) 
+
+map_overall 
+
+```
+
+@fig-racediffs illustrates Percent of Gun shot of force use deaths in Canada grouped by blacks and whites victims. It shows the gun shot percents for blacks are higher than that for whites overall across the periods. And in early periods, the gun shot percents are much lower compared with recent periods. For examples, the gun shot percents in period 2000-2005 year are little above 50% but in periods after 2010, the gun shot percents almost are all over 80% for blacks and whites. 
+
+```{r}
+#| echo: false
+#| eval: true
+#| warning: false
+#| message: false
+#| fig-height: 5.4
+#| label: fig-racediffs
+#| fig-cap: "Percent of Gun shot overall in Canada in the periods from 2000 to 2024 by blacks and whites"
+#show differences of races in Percent of Gun shot across different periods
+race.diffs <- data |>
+  select(period, race, gunshot) |> 
+  group_by(period, race) |>
+  summarize(rate = mean(gunshot) ) |> 
+  ggplot(aes(x=period, y=rate, color=race)) + 
+  scale_y_continuous(labels = scales::percent, limits = c(0, 1)) + 
+  theme_tufte() +  
+  geom_segment(aes(x=period,  
+                   xend=period, 
+                   y = 0, 
+                   yend=1), 
+               linetype="dashed", 
+               size=0.3,
+               color="white") +  
+  geom_point(size = 6 ) + 
+  labs(
+    subtitle="Gun shot difference between blacks and whites across different periods",
+    y="Percent of gun shot",
+    x="Period",
+    color = "Race") +  
+  coord_flip() + 
+  scale_color_manual(values=c("#58FA58", "#FA5858")) +  
+  theme(legend.position="top", 
+        legend.background = element_rect(fill="#FFF9F5", 
+                                         size=0.5, 
+                                         linetype="solid", 
+                                         colour ="black")) + 
+  theme(
+    plot.subtitle=element_text(hjust= 0.3, color="white"), 
+    plot.background=element_rect(fill="#0E5682"),
+    axis.text = element_text(colour="white"),
+    axis.title = element_text(colour="white"))
+race.diffs
+
+```
+
+@fig-genderdiffs illustrates Gun shot rates by different combinations of gender and race, it shows for blacks, the percent of gun shot is much higher for males compared with females, but for whites, gun shot percent for males is little above that for females. This indicates Canada polices are most likely to use gun shot forces when they faced with black men.
+
+```{r}
+#| echo: false
+#| eval: true
+#| warning: false
+#| message: false
+#| fig-width: 6.8
+#| fig-height: 5.4
+#| label: fig-genderdiffs
+#| fig-cap: "Percent of Gun shot overall in Canada in the periods from 2000 to 2024 by race and gender"
+#show Gun Shot Rates by Gender and Race 
+gender_diff <- data |> 
+  select(gender, race, gunshot) |>
+  mutate(gender = ifelse(gender == 1, "Male","Female")) |> 
+  group_by( gender, race) |> 
+  summarize(rate = mean(gunshot)) |> 
+  ggplot(aes(x=fct_reorder(gender,rate), 
+             y=rate, fill= race )) +
+  geom_bar(stat="identity") + 
+  facet_wrap(~ race) + 
+  coord_flip() + 
+  scale_fill_manual(values=c("#58FA58", "#FA5858")) +
+  geom_label(aes(label= paste0( round(rate * 100,2),"%"), fill = race), colour = "white") + 
+  scale_y_continuous(labels = scales::percent, limits = c( 0, 1)) +  
+  theme_economist() + 
+  labs(y ="Percent of gun shot", x="Gender", title="Gun Shot Rates by Gender and Race") + 
+  theme(legend.position="none",
+        axis.text.y = element_text(size = 10),
+        strip.text = element_text(size = 10, face = "bold"),
+        plot.title=element_text(hjust=0.4, size=12))
+
+gender_diff
+
+```
+
+@fig-gunshotrace illustrates the differences between blacks and whites of gun shot percents in force related deaths for top 6 provinces in Canada which have most force related death cases. Top 6 provinces with most cases are used due to these provinces tend to have relative enough large sample sizes to obtain more reliable gun shot percents. And it shows British Columbia has blacks' gun shot rates over 50% compared with whites' gun shot rates,  Alberta and  Manitoba also show much higher gun shot rates of blacks. Only  Quebec shows whites' gun shot rates is 13% higher than blacks'. For Ontario, the blacks and whites gun shot rates are very close showing only a -1% difference.
+
+```{r}
+#| echo: false
+#| eval: true
+#| warning: false
+#| message: false
+#| fig-width: 8.8
+#| fig-height: 6.8
+#| label: fig-gunshotrace
+#| fig-cap: "Gun Shot Rates and Differences by Race Across Top 6 Gun Shot Cases Provinces. BC = British Columbia; AB = Alberta; MB = Manitoba; NL = Newfoundland and Labrador; ON = Ontario; QC = Quebec"
+#filter only using top 6 provinces which have most cases, thus, information could be enough to compute gun shot rate
+gunshot_race <- data |>
+  filter(province %in% names(sort(table(data$province),decreasing = TRUE))[1:6]) |>
+  select(province, race, gunshot) |>
+  group_by(race, province) |>
+  summarise(rate = mean(gunshot)) |>
+  ggplot(aes(x=province, y=rate, color=race)) + 
+  facet_wrap(~race) + 
+  coord_flip() + 
+  theme_minimal() + 
+  scale_y_continuous(labels = scales::percent, limits = c( 0, 1)) +  
+  theme(legend.position = "top",
+        plot.background=element_rect(fill="#FFF2E4")) + 
+  stat_summary(fun.y=mean, fun.ymin = min, fun.ymax = max) +
+  scale_color_manual(values=c("#58FA58", "#FA5858")) + 
+  labs(title="Gun Shot Rates by Race Across Top 6 Gun Shot Cases Provinces",
+       color = "Race", 
+       x = "Province",
+       y = "Percent of gun shot")
+
+#blacks gun shot rate
+black_rate <- data |>
+  filter(province %in% names(sort(table(data$province),decreasing = TRUE))[1:6]) |>
+  select(province, race, gunshot) |>
+  group_by(province) |>
+  filter(race == "Black") |> 
+  summarize(rate_black = mean(gunshot))
+#whites gun shot rate
+white_rate <-  data |>
+  filter(province %in% names(sort(table(data$province),decreasing = TRUE))[1:6]) |>
+  select(province, race, gunshot) |>
+  group_by(province) |>
+  filter(race == "White") |> 
+  summarize(rate_white = mean(gunshot))
+#compute difference and combine to show the plot
+diff <- merge(black_rate, white_rate) |> 
+  mutate(diff = round(((rate_black - rate_white)/rate_white), 2) * 100) |>
+  ggplot(aes(x=reorder(province, diff), y = diff, fill = province)) + 
+  geom_bar(stat="identity") + 
+  coord_flip() +
+  theme_minimal() +
+  scale_fill_manual(values = colorRampPalette(brewer.pal(6, "Set2"))(6)) + 
+  theme(plot.background=element_rect(fill="#FFF1E0"), 
+        legend.position="none") + 
+  labs(x="Province", 
+       y="Percent Difference (%)", 
+       title="Percent Difference of Gun Shot by Top 6 Gun Shot Cases Provinces") + 
+  geom_label(aes(label=paste0(diff, "%")), 
+             colour = "white", 
+             hjust=0.3)
+
+plot_grid(gunshot_race, 
+          diff, 
+          nrow=2)
+
+```
+
+@fig-gunshotracepolice illustrates the differences between blacks and whites of gun shot percents in force related deaths for top 3 Gun Shot Cases Polices which have most force related death cases. For all of the top 3 Gun Shot Cases Polices, blacks' gun shot percents are higher than whites', especially for Toronto Police Service, the blacks gun shot rate is 49% higher than that of whites.
+
+All of the above figures indicate blacks' gun shot percents are close with whites' overall in Canada,
+but for some provinces like British Columbia, the blacks' gun shot percents is much higher than that of whites. Also, for province like Ontario, although the blacks and whites gun shot percents are very close, for Toronto Police Service, blacks' gun shot percents is much higher than that of whites.
+
+
+```{r}
+#| echo: false
+#| eval: true
+#| warning: false
+#| message: false
+#| fig-width: 8.8
+#| fig-height: 6.8
+#| label: fig-gunshotracepolice
+#| fig-cap: "Gun Shot Rates and Differences by Race Across Top 3 Gun Shot Cases Polices"
+#now, filter using top 3 police
+gunshot_race <- data |>
+  filter( police %in% names(sort(table(data$ police),decreasing = TRUE))[1:3]) |>
+  select( police, race, gunshot) |>
+  group_by(race,  police) |>
+  summarise(rate = mean(gunshot)) |>
+  ggplot(aes(x= police, y=rate, color=race)) + 
+  facet_wrap(~race) + 
+  coord_flip() + 
+  theme_minimal() + 
+  scale_y_continuous(labels = scales::percent, limits = c( 0, 1)) +  
+  theme(legend.position = "top",
+        plot.background=element_rect(fill="#FFF2E4")) + 
+  stat_summary(fun.y=mean, fun.ymin = min, fun.ymax = max) +
+  scale_color_manual(values=c("#58FA58", "#FA5858")) + 
+  labs(title="Gun Shot Rates by Race Across Top 3 Gun Shot Cases Polices",
+       color = "Race", 
+       x = "Police",
+       y = "Percent of gun shot")
+
+#similar for blacks and whites
+black_rate <- data |>
+  filter( police %in% names(sort(table(data$ police),decreasing = TRUE))[1:3]) |>
+  select( police, race, gunshot) |>
+  group_by( police) |>
+  filter(race == "Black") |> 
+  summarize(rate_black = mean(gunshot))
+
+white_rate <-  data |>
+  filter( police %in% names(sort(table(data$ police),decreasing = TRUE))[1:3]) |>
+  select( police, race, gunshot) |>
+  group_by( police) |>
+  filter(race == "White") |> 
+  summarize(rate_white = mean(gunshot))
+
+diff <- merge(black_rate, white_rate) |> 
+  mutate(diff = round(((rate_black - rate_white)/rate_white), 2) * 100) |>
+  ggplot(aes(x=reorder( police, diff), y = diff, fill =  police)) + 
+  geom_bar(stat="identity") + 
+  coord_flip() +
+  theme_minimal() +
+  scale_fill_manual(values = colorRampPalette(brewer.pal(3, "Set2"))(3)) + 
+  theme(plot.background=element_rect(fill="#FFF1E0"), 
+        legend.position="none") + 
+  labs(x="Police", 
+       y="Percent Difference (%)", 
+       title="Percent Difference of Gun Shot by Top 3 Gun Shot Cases Polices") + 
+  geom_label(aes(label=paste0(diff, "%")), 
+             colour = "white", 
+             hjust=0.3)
+
+plot_grid(gunshot_race, 
+          diff, 
+          nrow=2)
+```
+
+
+
+```{r}
+#| echo: false
+#| eval: true
+#| label: tbl-modelresults
+#| tbl-cap: "Models of whether there is a gun shot force or not related deaths based on age, gender, race and periods."
+#| warning: false
+#| message: false
+model_canada <-
+  readRDS(file = here::here("models/model_canada.rds"))
+model_ON <-
+  readRDS(file = here::here("models/model_ON.rds"))
+model_Toronto <-
+  readRDS(file = here::here("models/model_Toronto.rds"))
+modelsummary::modelsummary(
+  list(
+    "Canada Overall" = model_canada, 
+    "Ontario Province" = model_ON, 
+    "Toronto Police Service" = model_Toronto
+  ),
+  fmt = 2,
+  gof_omit = c("ELPD|LOOIC|RMSE"),
+  coef_omit = c(-2,-3,-4),
+  statistic = 'conf.int', 
+  conf_level = 0.95,
+  exponentiate = T
+)
+
+```
+
+
+Models' results are summarized in @tbl-modelresults. The first model is the model overall for all provinces across Canada; The second model is the model overall for polices across province Ontario; The third model is model the for Toronto Police Service only. @tbl-modelresults do not show the estimates for different periods, but show the estimated Odds Ratio for age, gender and race as well as 95% confidence intervals. The table shows the 95% confidence intervals of factors age and gender across the three models are all include 1s indicating non-significant effects of them on Gun shot likelihood used in force related deaths in Canada. Also, Canada Overall and Ontario Province do not show significant effects of races. However, @tbl-modelresults shows a very high estimated Odds Ratio 7.13 for race blacks compared with whites for Toronto Police Service, and the 95% confidence interval does not include 1 indicates it is significant at 5% level. This means the odds of gun shot vs. non-gun shot for blacks by Toronto Police Service is over 6 times higher compared with that for whites.
+
+
+# Discussion {#sec-Discussion}
+
+
+## Toronto Racial Disparities in Police-Involved Deaths  {#sec-first-point}
+
+The bayesian logistic regression model at Toronto Police Service level (City level) shows the odds of gun shot likelihood for blacks is over 6 times higher than that for whites. At the same time, there are non-significant estimates of same odds ratios at Canada Country level and Ontario Province level. It means that we find a statistical significant evidence showing racial bias in justice system of the police practices in Toronto city in treating blacks compared with whites. The injustice is not Country level and not Province level but only at the Toronto city level. Our findings is based on the usage of highest level police force which is Gun shot and Gun shot is much more likely to cause death compared with other types of police forces like restraint, physical forces or Taser. 
+
+The findings of the injustice treatment of blacks in police practices in Toronto city is consistent with the claims by former studies  of racial discrimination in canadian criminal justice system [@citedis2]. The reason why Toronto city is so different compared with the Country level in Canada and Province level in Ontario could be the serious situation of the anti-black racisim by the toronto polices. There is a city's historical problem of injustice for black communities in law enforcement in Toronto. Toronto city's diversity and income disparities are clear more seriously compared with other regions in Canada. Such environment make the police focus on black communities more compared with white communities leading to a series of injustices in police practices. 
+
+After understanding the situation of facts of the anti-black racisim and reasons for that in Toronto city, it is important to make better decisions to deal with the issues. Although there are lots of challenges, some strategies could be useful. On one hand, we can try to improve the economic status for black communities compared with white communities, because we know poverty of black communities does not cause criminals, the inequalities between black and white communities in Toronto does. On the other hand, we can try to implement anti-racism training within the Toronto Police Service, we need to make the polices more understanding the injustice of force use faced by blacks. 
+
+
+
+## Increasing of Gun shot likelihood trends in Canada {#sec-second-point}
+
+[@citedis1] already pointed out the situation of the increasing of Gun shot likelihood trends.  Our study also confirmed this that shown in @fig-racediffs where we find the Percent of Gun shot of force use deaths in Canada for both blacks and whites victims are increasing overall since the year 2000 to 2024. Compared with the fact that the gun shot percents for blacks are higher than that for whites, a more important issue could be the upward trends of overall gun shot percents. Although it is useful that we can make better decisions and efficient strategies in dealing with anti-racism Police practices to avoid injustice of high Gun shot likelihood for black communities, it might be more important to control the usage of Gun shot force to lower the numbers of victims in killings and deaths following intentional police use of force. Because Gun shot is a biggest treat which is most likely to cause deaths in law enforcement compared with other types of police forces like restraint, physical forces or Taser.
+
+In early periods such as 2000-2005, both of the gun shot percents for blacks and whites are only little above 50% in Canada, the percents increase to over 80% since the period 2010-2015. The increasing trends of Gun shot likelihood fact indicates a requirement of reform of gun shot usage in Canada's law enforcement. This needs is not at Toronto City level but also at the Ontario province level as well as Canada country level. On one hand, we try to improve the situation of injustice environment for blacks in Gun shot force, one the other hand, we can try to make more restraints in Gun shot force use in Canada's law enforcement to create a more safer environment.
+
+
+## Suggestions of TASERs instead of Gun shot {#sec-third-point}
+
+As we find the increasing trends of gun shot percents for blacks and whites in recent year periods in Canada, the numbers are especially high for some provinces, although there are few cases for these provinces of the gun shot likelihood usage caused deaths, the 100% results are still notable. We do not want this is a change point and indication that we would have higher and higher percents of gun shot caused deaths for both blacks and whites in future. We should try to change the trend by finding a long term solution. Besides the suggestions in the previous sections to lower the percents of gun shot caused deaths especially for blacks, in this section, we suggest a long term solution that using TASERs instead of Gun shot.
+
+Unfortunately, although there are early studies on such suggestion [@citadis33], the proportion of using TASERs instead of Gun shot is still not high enough today, Gun shot is still the top one highest level of force use, this might due to we can not just use TASERs  to control the situations that police faced, but however, this might not be an obstacle to lower the percents of gun shot caused deaths in long term. We need try our best to use TASERs more and more as it can reduce fatal deaths in law enforcement [@citadis31]. The impact of TASERs in lowering death rate is clear [@citadis32]. 
+
+However, suggestions of using Tasers instead of Gun shot not mean Tasers are safe enough, Tasers can still cause deaths or serious injuries, there are high risks of shocks by electric which might also result a long term physical impact. Also, Tasers might not solve the poential racial bias in force use in police practices. Blacks might be suffered more from Tasers compared with whites. However, we believe these weaknesses of Tasers can be improved by better training and similar approaches. We suggest Tasers as a much safer way in police force use, and we also suggest policymakers to make better guidelines in using Tasers and better decisions in how to avoid and reduce racial bias in the practices. 
+
+## Weaknesses and next steps
+
+### Weaknesses
+
+Besides the findings, there are some weaknesses in this study. Firstly, the data source used in this study is a work in progress which is a living data, the conclusions could be different in different sample periods. Secondly, the data source collected the Police-Involved Deaths database from various sources including government, media reports, there could be inconsistent issues among the sources, there are no claimed made by the data source that the data used in this study is complete, so there is risk of biasness caused by the incomplete data. Thirdly, although there are deaths as recorded due to direct results of the police use of forces including Gun shot in our data, the data source pointed out that there is no confirmed causal link between the deaths and use of force. Also, this study used the  killings and deaths Police-Involved data where gun shot force usage could be a fatal factor to emphasize the importance of justices between blacks and whites, we do not include cases where there are no deaths occurred gun shot usage cases, so that we have used a relative small sample size due to there are not many cases of deaths following intentional police use of force, thus, a small sample size might not reliable. At last, in our study, we include several covariates such as age, gender, periods to investigate the differences between races, there could be other important variables not included, so there could be omitted important variables biasness in our study. 
+
+### Next steps
+
+For the future work, there could be some possible next steps. Firstly, we can try to find a larger sample size and more complete database of Police-Involved Deaths and extend our study to other regions such as USA. Secondly, with a reliable database of large sample size, we can extend our model to 
+Bayesian Hierarchical Models which also include time and province or cities as levels to obtain a better estimate of difference between blacks and whites across different time periods and location panels. Finally, we could consider more important variables such as income levels into our model to make the adjustment of the effects of races better.
+
+
+\newpage
+
+\appendix
+
+# Appendix {-}
+
+# Additional data details
+
+## Survey Objective
+
+The data source Tracking (in)justice Website understand the challenges in collecting observational records of killings and deaths following intentional police use of force in Canada which always make the data incomplete and less reliable. Now they plan to create another database besides the observational Police-Involved Deaths database which is a survey of Police-Involved Deaths aims to provide more information about Police-Involved Deaths. They could design a survey to achieve the goal.
+
+## Sampling Frame
+
+The survey will target all of the polices in Canada, so the sampling frame of the survey would be all of the polices registered in Canada police system database (for simplicity, we do not consider polices who are in secret missions, we only target normal polices). This sampling frame should be a well  representative of the Canada polices population that could help us reduce selection bias and improve reliability of survey results.
+
+## Sampling Methodology
+
+Stratified random sampling approach would be used in this survey to make sure the polices who will be participants in the survey in proportion to the polices population total in that strata. It is need to note that in this survey, we have two strata: Province-Level and City-Level. Although, the sampling process is little more complicated compared with Stratified random sampling with only one strata. The process is very similar, in our survey, we aim to obtain a total sample size about 1000 polices. This could be divided into two steps. Firstly, using Stratified random sampling based on provinces level in Canada, this means we need to compute proportion weights of each province in Canada based on the numbers of city police service (not number of polices but number of police service stations) in each province. Then for each province, given the sample size assigned, we continue to apply Stratified random sampling based on the polices registered in all of the city level police service to select samples of participants in proportion to those population sizes. 
+
+Note that, we do not need to consider the races or other  demographic characteristics for the polices as we only need to obtain such characteristics of victims of deaths cases they involved. Also, there are chances more than one police experienced the same death cases which would give same answers to our survey questions, in these cases, we would just keep one of the responses. It is rather hard to achieve this because we need to ask the participants to review through records their experienced instead of relying on their memory to recall the cases. Thus, we need some budgets, for examples, each participant who completed the survey would win like 30 dollars.
+
+
+After the sampling, we obtain the participants' telephones and emails registered in Canada police system database. Then we send them our survey questions from online platform to their emails. To make sure they received the emails and reduce non-response cases, we will make phone calls after sending emails to the participants.
+
+## Survey Implementation and Survey questions
+
+The survey will be made using Qualtrics. In design of the survey questions, we try our best to make sure there are no leading questions which suggest the polices to give some special answers. The survey questions are designed to obtain the age, gender, race of victims, the province, police service locations of the death cases, whether there was gun shot and the time the death cases occurred. The answers to the survey questions can help use create measurements of data entry like the data used in the research. Some differences are that we must filter answers with "Prefer not to say" and also we directly encoded Gun shot as a binary variable. Note, we do not ask the victims' names as well as participants' names in our survey which shows some aspect of respect privacy. 
+
+The main content of the emails with survey questions look like as below:
+
+Q1. Have you ever involved with deaths case?
+
+- Yes. 
+- No. If not yet, thanks for your participation, you can close the survey to save your time
+
+Q2. Could you please tell us the time the deaths case occurred?
+
+Q3. Could you please tell us the police you serviced when the case occurred?
+
+Q4. Could you please tell us the whether there was Gun shot in that case? 
+
+- There was Gun shot 
+
+- There was no Gun shot 
+
+- Prefer not to say
+
+Q5. Could you please tell us the gender of victim? 
+
+- Male
+
+- Female
+
+- Other
+
+- Prefer not to say
+
+Q6. Could you please tell us the race of victim? 
+ 
+- White
+
+- Black
+
+- Other
+
+- Prefer not to say
+
+Q7. Could you please tell us the age of victim? 
+
+- If not, thanks for your participation, you can close the survey at any time.
+- If yes, please tell us.
+
+The end, you can close the survey at any time, thanks for your participation!
+
+
+## Ethical principles
+
+We would try our best to do no harm to the participants and avoid stress on them, because although the Police-Involved Deaths could be openly found in government sources, such information is still sensitive. We keep anonymity for the participants showing respect of privacy of them. We would also inform them about the whole objective, process, use of findings, potential issues and make sure the participants have rights to completely to be voluntary after they received the emails, we make phone calls just to remind them that we have sent survey questions through emails. They have rights to complete or withdraw at any time.
+
+## Survey limitations 
+
+There are some limitations of our survey. Firstly, the information of Police-Involved Deaths are very sensitive, also, the information of polices registered in Canada police system database are protected. To do the survey, we must obtain government support. Secondly, potential ethical issues could be big challenges in this survey, we need to do lots of efforts to follow the ethical principles. Thirdly, there could be non-response bias that participants do not give answers or withdraw in the survey. Also, the answers from the survey might be biased due to the answers from the participants might have some gaps with the facts occurred due to a range of reasons such as missing values, unreliable records and so on. At last, the selection bias could be an issue due to the monetary rewards in this survey.
+
+
+# Model details {#sec-model-details}
+
+Here, we focus on the Canada level model to investigate the model checking. The Ontario, Toronto Police Service levels models' validation and checks should be similar to the Canada level model. 
+
+## Posterior predictive check
+
+@fig-ppcheckandposteriorvsprior-1 shows the posterior predictive check of response for canada level bayesian logistic regression model. It shows the observed data (y) has two modes, one for 0 and one for 1 which is our binary outcome. The replicated distributions (y_rep) shown by multiple thin lines, and we can find the thin lines are align with the observed distribution, this means our Bayesian logistic regression model at canada country level captured the main characteristics of the data.  @fig-ppcheckandposteriorvsprior-2 shows the posterior with the prior. Overall the posterios are priors are close, the main difference is period for 2021-2025 which indicates we still have space to improve and tune the model.
+
+```{r}
+#| eval: true
+#| echo: false
+#| message: false
+#| warning: false
+#| label: fig-ppcheckandposteriorvsprior
+#| layout-ncol: 2
+#| fig-width: 7.2
+#| fig-height: 5.2
+#| fig-cap: "Examining how the canada level model fits, and is affected by, the data"
+#| fig-subcap: ["Posterior prediction check for canada level model", "Comparing the posterior with the prior for canada level model"]
+
+pp_check(model_canada) +
+  theme_classic() +
+  theme(legend.position = "bottom")
+posterior_vs_prior(model_canada) +
+  theme_minimal() +
+  scale_color_brewer(palette = "Set1") +
+  theme(legend.position = "bottom") +
+  coord_flip()
+```
+
+## Diagnostics
+
+@fig-standiag-1 shows the trace plot. The convergences patterns are all clear for the parameters indicating the model is converged and reliable. @fig-standiag-2 is a Rhat plot, due to our model is binary outcome and we focus on effects of factors on outcome, we consider there is no big issue for this.
+
+```{r}
+#| echo: false
+#| eval: true
+#| message: false
+#| warning: false
+#| label: fig-standiag
+#| fig-cap: "Checking the convergence of the MCMC algorithm for canada level model"
+#| fig-subcap: ["Trace plot for canada level model", "Rhat plot for canada level model"]
+#| layout-ncol: 2
+
+plot(model_canada, "trace")
+plot(model_canada, "rhat")
+```
+
+## Test/training splits
+
+Although our outcome is binary, RMSE could be still used here:
+
+\begin{align}
+RMSE = \sqrt{\sum_{i=1}^n (y_i - \hat{y_i})^2}
+\end{align}
+
+Where $y_i$ is 0 or 1 actual outcome, $\hat{y_i}$ is predicted probability of the outcome, the range is from 0 to 1. This measure would be evaluted for both test and train sets. The random seed 123 is set and 70% randomly selected data used as training and the left 30% as testing. The training set shows a RMSE 0.41 while the testing set shows a RMSE 0.38 for canada level model. The two results are close and both are low indicating the predictive power of the model is well, and the performance of the model is consistent, the model could also perform well on unseen validation data.
+
+```{r}
+#| eval: false
+#| echo: false
+#| message: false
+#| warning: false
+data <- read_parquet(here::here("data/02-analysis_data/analysis_data.parquet"))
+set.seed(123)
+id <- sample(1:nrow(data), 0.7*nrow(data))
+train <- data[id,]
+test <- data[-id,]
+model_canada_split <-
+  stan_glm(
+    formula = gunshot ~ age + gender + race + period,
+    data = train,
+    family = binomial(link = "logit"),
+    prior = normal(location = 0, scale = 2.5, autoscale = TRUE),
+    prior_intercept = normal(location = 0, scale = 2.5, autoscale = TRUE),
+    seed = 123
+  )
+rmse_train <- sqrt( mean(( train$gunshot -  predict(model_canada_split, type = "response") )^2) )
+rmse_test <- sqrt( mean(( test$gunshot - predict(model_canada_split, newdata=test,type = "response") )^2) )
+```
+
+
+\newpage
+
+
+# References
+
+
